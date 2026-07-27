@@ -41,3 +41,4 @@ psycopg2 = "*"
 urllib3 = ">=2.6.3"
 idna = "*"
 lxml = "*"
+gunicorn = {extras = ["gthread"], version = "*"}

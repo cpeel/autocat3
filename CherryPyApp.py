@@ -335,9 +335,10 @@ def main():
                                   'tools.staticdir.dir': install_dir + "/gutenberg"}})
         app.merge({'/pics': {'tools.staticdir.on': True,
                              'tools.staticdir.dir': install_dir + "/pics"}})
+
     # Mount OPDS feed at /opds
-    cherrypy.log("Mounting OPDS feed", context='ENGINE', severity=logging.INFO)
-    cherrypy.tree.mount(OPDSFeed(), '/opds', OPDS_MOUNT_CONFIG)
+    OPDS_MOUNT = OPDS_MOUNT_CONFIG['/'] + {'request.dispatch': OPDSFeed()}
+    app.merge({'/opds': OPDS_MOUNT})
 
     return app
 

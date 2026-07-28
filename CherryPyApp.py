@@ -321,6 +321,9 @@ def main():
         d.connect('msdrive_callback', r'/ebooks/send/msdrive/',
                    controller=msdrive)
 
+    # Mount OPDS feed at /opds
+    d.connect('opds', '/opds/', controller=OPDSFeed(), config=OPDS_MOUNT_CONFIG)
+
     # start http server
     #
 
@@ -335,10 +338,6 @@ def main():
                                   'tools.staticdir.dir': install_dir + "/gutenberg"}})
         app.merge({'/pics': {'tools.staticdir.on': True,
                              'tools.staticdir.dir': install_dir + "/pics"}})
-
-    # Mount OPDS feed at /opds
-    OPDS_MOUNT = OPDS_MOUNT_CONFIG['/'] + {'request.dispatch': OPDSFeed()}
-    app.merge({'/opds': OPDS_MOUNT})
 
     return app
 
